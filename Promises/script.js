@@ -53,3 +53,32 @@ function fetchData() {
 }
 
 fetchData();
+
+function fetchData(URL) {
+  return fetch(URL)
+    .then((resp) => {
+      if (!resp.ok) {
+        throw new Error("Network error");
+      }
+
+      return resp.json();
+    })
+    .then((data) => {
+      if (data.length > 0) {
+        //do something with the data
+        return data;
+      } else {
+        return [];
+      }
+    })
+    .catch((err) => {
+      //Log data error etc
+    })
+    .finally(() => {
+      //cleanup
+      //loadingFlag = false;
+    });
+}
+
+const dataReturn = featchData("lorempisum");
+//Do something with the data, let set it to a react state variable
