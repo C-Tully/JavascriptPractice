@@ -41,9 +41,15 @@ export default function TestForm() {
     if (uName && uPass) {
       //Dispatch action... do something here
       //simulate backend
-      setTimeout(() => {
-        console.log("Timing out");
-      }, 5000);
+
+      await new Promise<void>((resolve) => {
+        console.log("Promise Start::");
+        setTimeout(() => {
+          console.log("Timing out inner");
+          resolve();
+        }, 3000);
+      });
+      console.log("Timing out done");
 
       form.current?.clear();
     } else {
@@ -74,11 +80,12 @@ export default function TestForm() {
           </div>
         ))}
         <Button
+          disabled={isLoading}
           className={
             "bg-sky-500 hover:bg-sky-700 block mb-1 text-sm font-medium text-gray-700 rounded-xs"
           }
         >
-          Submit
+          {isLoading ? "Submitting..." : "Submit"}
         </Button>
       </div>
     </Form>
